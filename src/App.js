@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from 'react';
+import {Container,Row,Col} from 'react-bootstrap';
+import AddTask from './componets/AddTask';
+import './App.scss';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Container fluid className="app">
+     <div className="title">
+       <h1>Jhon Edison Hincapie Garcia</h1>
+     </div>
+
+     <Row className="todo">
+       <Col className="todo__title" 
+       xs={{span:10,offset:1}}  
+       md={{span:6,offset:3}}>
+       <h2>Today </h2>
+       </Col>
+
+       <Col className="todo__list" 
+       xs={{span:10,offset:1}} 
+       md={{span:6,offset:3}}>
+       <p>Lista de tareas </p>
+       </Col>
+
+       <Col  className="todo__input" 
+        xs={{span:10,offset:1}}
+        md={{span:6,offset:3}}>
+       <AddTask/>
+       </Col>
+
+     </Row>
+
+   </Container>
   );
 }
 
