@@ -1,12 +1,35 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import {Form,Button} from 'react-bootstrap';
+import {isEmpty} from 'lodash';
+import firebase from '../../utils/firebase';
+import "firebase/firestore";
 import {ReactComponent as Send} from '../../assets/img/send.svg';
 import './AddTask.scss';
 
-export default  function AddTask()
+const db=firebase.firestore(firebase);
+
+export default  function AddTask(props)
 {
-    const onSubmit=()=>{
-        console.log("Formulario enviado...");
+    const{setReloadTask}=props;
+    const [task,setTask]=useState(null);
+
+
+    const onSubmit=(e)=>{
+
+        e.preventDefault();
+
+        if(!isEmpty(task)){
+            db.collection("task").add(
+                {
+                    name:task,
+                    completed:false
+                }
+            ).then(()=>{
+
+                setTask("");
+                setReloadTask(true);
+            })
+        }
     }
 
 
@@ -16,13 +39,13 @@ export default  function AddTask()
                 <input 
                 type="text"
                 placeholder="Nueva Tarea...!"
+                onChange={(e)=>setTask(e.target.value)}
+                value={task}
                 />
                 <Button type="submit">
                     <Send/>
                 </Button>
-
-            </Form>
-                
+            </Form>        
             </>
     );
 }
